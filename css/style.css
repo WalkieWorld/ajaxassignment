@@ -1,0 +1,181 @@
+body.container{
+	font-family: 'Josefin Sans', sans-serif;
+}
+.wrap{
+	margin: 0px auto;
+	width: 1140px;
+}
+.container{
+	left: 0px;
+	right: 0px;
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: #333;
+	opacity: 0;
+}
+.container p{
+	font-family: 'Josefin Sans', sans-serif;
+	margin: 0px 0px 10px;
+	padding: 0px 0px 10px;
+	color: #000000;
+	font-size: 1em;
+	line-height: 1.3em;
+	letter-spacing: 0.02em;
+	word-spacing: 0.1em;
+}
+
+.container strong{
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bolder;
+}
+.container h1,
+.container h2,
+.container h3,
+.container h4,
+.container h5,
+.container h6 {
+	padding: 0;
+	margin: 10px 0;
+	font-weight: 500;
+	color: #000000;
+	letter-spacing: 0.00em;
+}
+
+.container h1 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 2.25em;
+	line-height: 77px;
+}
+.container h2 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.875em;
+	line-height: 40px;
+	letter-spacing: 0.01em;
+}
+.container h3 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.5em;
+	line-height: 36px;
+	letter-spacing: 0.01em;
+}
+.container h4 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 1.125em;
+	line-height: 26px;
+	letter-spacing: 0.02em;
+}
+.container h5 {
+	font-family: 'Josefin Sans', sans-serif;
+	letter-spacing: 0.02em;
+	font-size: 0.875em;
+	line-height: 23px;
+}
+.container h6 {
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 0.75em;
+	line-height: 20px;
+	letter-spacing: 0.02em;
+	font-size: 12px;
+}
+.container h1 small {
+	font-size: 1.5em;
+}
+.container h2 small {
+	font-size: 1.2em;
+}
+.container h3 small {
+	font-size: 0.9em;
+}
+.container h4 small {
+	font-size: 0.78em;
+}
+.container h5 small {
+	font-size: 0.6em;
+}
+.container h6 small {
+	font-size: 0.5em;
+}
+.container a,
+.container .link {
+	color: #2e92cf;
+}
+.container a:hover,
+.container .link:hover {
+	color: #0f5f87;
+}
+.container a:focus,
+.container .link:focus,
+.container a:active,
+.container .link:active {
+	color: #0f5f87;
+}
+.container .btn:hover {
+	color: #0f5f87;
+	background-color: #FFF8DC;
+}
+.btn{
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.4;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+.container label {
+	display: inline;
+	padding: 2px 5px 2px 5px;
+	font-size: .85em;
+	font-weight: 500;
+	line-height: 1;
+	color: #000;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .05em;
+}
+.container .dialog{
+	width: 300px;
+	height: 100px;
+	position: relative;
+	top: 40%;
+	margin: 0 auto;
+	border: 1px solid #000;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 3px;
+	opacity: 0;
+}
+.hidden{
+	display: none;
+}
+#warning{
+	color: #cc0000;
+	font-size: 14px;
+	border: 0px solid #fff;
+}
+#dialog{
+	z-index: 99;
+}
+#myAccordion article{
+	height: auto;
+	overflow: hidden;
+}
+#slider{
+	margin-top: 50px;
+}
+#slider #volume{
+	border: 0px solid #fff;
+	width: 25px;
+}
+#volumeSlider{
+	height: 150px;
+	margin-top: 20px;
+}
