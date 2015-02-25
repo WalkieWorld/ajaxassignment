@@ -4,8 +4,6 @@ body.container{
 .wrap{
 	margin: 0px auto;
 	width: 1140px;
-    display: flex;
-    justify-content: center;
 }
 .container{
 	left: 0px;
@@ -169,4 +167,31 @@ body.container{
 #btnSearch{
     margin-top: 100px;
     padding: 0px 20px;
+}
+.search-section{
+    display: flex;
+    justify-content: center;
+}
+#result{
+    display: flex;
+    justify-content: center;
+}
+#result section{
+    background: #ffffff none repeat right top;
+}
+#result ul{
+    width: 40%;
+    margin-right: 63px;
+    padding-left: 0px;
+    list-style-type: none;
+    background: #fff;
+}
+.hidden{
+    display: none;
+}
+#result ul li p {
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    margin-left: 20px;
+    width: 100%;
 }
