@@ -103,7 +103,7 @@ body.container{
 }
 .container a,
 .container .link {
-	color: #2e92cf;
+	color: #0101DF;
 }
 .container a:hover,
 .container .link:hover {
@@ -113,10 +113,10 @@ body.container{
 .container .link:focus,
 .container a:active,
 .container .link:active {
-	color: #0f5f87;
+	color: #0101DF;
 }
 .container .btn:hover {
-	color: #0f5f87;
+	color: #0101DF;
 	background-color: #FFF8DC;
 }
 .btn{
@@ -157,12 +157,13 @@ body.container{
 	opacity: 0;
 }
 #searchArea{
-    width: 40%;
+    width: 463px;
     margin-right: 5px;
     margin-top: 100px;
     background-color: #ddd;
     border: 0px solid #ddd;
     height: 35px;
+    padding-left: 10px;
 }
 #btnSearch{
     margin-top: 100px;
@@ -180,18 +181,34 @@ body.container{
     background: #ffffff none repeat right top;
 }
 #result ul{
-    width: 40%;
-    margin-right: 63px;
-    padding-left: 0px;
+    margin-right: -122px;
+    padding-right: 128px;
     list-style-type: none;
-    background: #fff;
+    background: none repeat scroll 0% 0% transparent;
+    z-index: 3;
+    overflow: auto;
+    height: 500px;
+    margin-top: 12px;
+    width: 500px;
 }
 .hidden{
     display: none;
+}
+#result ul li{
+    margin-left: -12px;
+    width: 120%;
 }
 #result ul li p {
     margin-bottom: 0px;
     padding-bottom: 10px;
     margin-left: 20px;
+    margin-top: 5px;
     width: 100%;
+}
+.background{
+    width: 530px;
+    position: relative;
+    margin: 0px -660px 0px 0px;
+    opacity: 0.65;
+    padding-right: 128px;
 }
