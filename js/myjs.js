@@ -9,8 +9,10 @@ $(function() {
         servOption: ["/Web", "/Image", "/News", "/Video"],
         searchSentence: undefined,
         resultObj: undefined,
+        basicWindowFeature: "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes",
         renderHtml: [],
         basicUrl: "https://api.datamarket.azure.com/Bing/Search/v1",
+        openBingUrl: "http://www.bing.com/search?q=",
         option: {
             method: "GET",
             url: "",
@@ -19,18 +21,12 @@ $(function() {
 
         init: function () {
             this.addEvent(this.inputHandler, "keyup", function (e) {
+                MyAJAXSearch.searchSentence = encodeURIComponent("'" + document.getElementById("searchArea").value + "'");
+                MyAJAXSearch.option.url = MyAJAXSearch.basicUrl + MyAJAXSearch.servOption[0]
+                + "?$format=json&$top=15&Query=" + MyAJAXSearch.searchSentence;
+                MyAJAXSearch.ayncAJAX(MyAJAXSearch.option, MyAJAXSearch.ayncCallback);
                 if (e.keyCode === 13) {
-                    if (MyAJAXSearch.renderHtml.length !== 0) {
-                        MyAJAXSearch.renderHtml.forEach(function(curVal, index, arr){
-                            document.getElementById("result").removeChild(curVal);
-                        });
-                        MyAJAXSearch.renderHtml = [];
-                        MyAJAXSearch.option.url = "";
-                    }
-                    MyAJAXSearch.searchSentence = encodeURIComponent("'" + document.getElementById("searchArea").value + "'");
-                    MyAJAXSearch.option.url = MyAJAXSearch.basicUrl + MyAJAXSearch.servOption[0]
-                    + "?$format=json&$top=15&Query=" + MyAJAXSearch.searchSentence;
-                    MyAJAXSearch.ayncAJAX(MyAJAXSearch.option, MyAJAXSearch.ayncCallback);
+                    MyAJAXSearch.openInBing();
                 }
             });
         },
@@ -59,6 +55,7 @@ $(function() {
         ayncCallback: function (request) {
             var result = document.getElementById("result");
             if (request.status === 200) {
+                MyAJAXSearch.resetResult();
                 MyAJAXSearch.resultObj = JSON.parse(request.responseText);
                 MyAJAXSearch.renderResult(MyAJAXSearch.resultObj);
             } else {
@@ -73,7 +70,7 @@ $(function() {
             jsonData.d.results.forEach(function (curVal, index, arr) {
                 var li = document.createElement("li");
                 var a = document.createElement("a");
-                a.href = curVal.Url;
+                a.href = MyAJAXSearch.openBingUrl + curVal.Title.replace(/\s/, "+");
                 a.textContent = curVal.Title;
                 a.target = "_blank";
                 var p = document.createElement("p");
@@ -87,21 +84,38 @@ $(function() {
             MyAJAXSearch.renderHtml.forEach(function(curVal, index, arr){
                 document.getElementById("result").appendChild(curVal);
             });
+        },
+        resetResult: function(){
+            if (MyAJAXSearch.renderHtml.length !== 0) {
+                MyAJAXSearch.renderHtml.forEach(function(curVal, index, arr){
+                    document.getElementById("result").removeChild(curVal);
+                });
+                MyAJAXSearch.renderHtml = [];
+                MyAJAXSearch.option.url = "";
+                MyAJAXSearch.searchSentence = undefined;
+            }
+        },
+        openInBing: function(){
+            MyAJAXSearch.searchSentence = MyAJAXSearch.searchSentence.replace(/\s/, "+" );
+            MyAJAXSearch.searchSentence = MyAJAXSearch.searchSentence.replace(/'+/g, "" );
+            var fullOpenUrl = MyAJAXSearch.openBingUrl + MyAJAXSearch.searchSentence;
+            window.open(fullOpenUrl, "_blank", MyAJAXSearch.basicWindowFeature);
         }
     };
     MyAJAXSearch.init();
 
     var MyJqueryAJAXSearch = {
         init: function(){
-            $('#btnSearch').on('click', this.getData);
+            $('#btnSearch').on('click', function(){
+                MyAJAXSearch.searchSentence = encodeURIComponent("'" + document.getElementById("searchArea").value + "'");
+                MyAJAXSearch.openInBing();
+            })
         },
+        /**
+         * This function hasn't been used ever here.
+         * It represents another way to implement the AJAX, which is by jQuery
+         * */
         getData: function(){
-            if (MyAJAXSearch.renderHtml.length !== 0) {
-                MyAJAXSearch.renderHtml.forEach(function(curVal, index, arr){
-                    document.getElementById("result").removeChild(curVal);
-                });
-                MyAJAXSearch.renderHtml = [];
-            }
             MyAJAXSearch.searchSentence = encodeURIComponent("'" + document.getElementById("searchArea").value + "'");
             var fullUrl = MyAJAXSearch.basicUrl + MyAJAXSearch.servOption[0]
                 + "?$format=json&$top=15&Query=" + MyAJAXSearch.searchSentence;
@@ -114,6 +128,7 @@ $(function() {
                 }
             })
                 .done(function(data){
+                    MyAJAXSearch.resetResult();
                     MyAJAXSearch.renderResult(data);
                 });
         }
