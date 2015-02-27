@@ -102,34 +102,58 @@ $(function() {
             window.open(fullOpenUrl, "_blank", MyAJAXSearch.basicWindowFeature);
         }
     };
-    MyAJAXSearch.init();
+    //MyAJAXSearch.init();
 
     var MyJqueryAJAXSearch = {
+        basicUrl: "http://api.bing.net/qson.aspx?Query=",
+        requiredPare: "&JsonType=callback&JsonCallback=?",
+        fullUrl: undefined,
         init: function(){
             $('#btnSearch').on('click', function(){
-                MyAJAXSearch.searchSentence = encodeURIComponent("'" + document.getElementById("searchArea").value + "'");
+                MyAJAXSearch.searchSentence = document.getElementById("searchArea").value;
                 MyAJAXSearch.openInBing();
-            })
+            });
+            $('#searchArea').on('keyup', function(e){
+                MyAJAXSearch.searchSentence = document.getElementById("searchArea").value;
+                MyAJAXSearch.fullUrl
+                    = MyJqueryAJAXSearch.basicUrl + document.getElementById("searchArea").value + MyJqueryAJAXSearch.requiredPare;
+                MyJqueryAJAXSearch.getData();
+                if (e.keyCode === 13) {
+                    MyAJAXSearch.openInBing();
+                }
+            });
+        },
+        renderResult: function(jsonData){
+            var section = document.createElement("section");
+            var ul = document.createElement("ul");
+            section.classList.add("background");
+            $.each(jsonData.SearchSuggestion.Section, function(index, curVal){
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+                a.href = MyAJAXSearch.openBingUrl + curVal.Text.replace(/\s/, "+");
+                a.textContent = curVal.Text;
+                a.target = "_blank";
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            MyAJAXSearch.renderHtml.push(section);
+            MyAJAXSearch.renderHtml.push(ul);
+            $.each(MyAJAXSearch.renderHtml, function(index, curVal){
+                document.getElementById("result").appendChild(curVal);
+            });
         },
         /**
-         * This function hasn't been used ever here.
-         * It represents another way to implement the AJAX, which is by jQuery
+         * This function is for getting Bing Search Suggestions.
          * */
         getData: function(){
-            MyAJAXSearch.searchSentence = encodeURIComponent("'" + document.getElementById("searchArea").value + "'");
-            var fullUrl = MyAJAXSearch.basicUrl + MyAJAXSearch.servOption[0]
-                + "?$format=json&$top=15&Query=" + MyAJAXSearch.searchSentence;
             $.ajax({
-                type: MyAJAXSearch.option.method,
-                url: fullUrl,
-                dataType: "json",
-                headers: {
-                    "Authorization": "Basic " + btoa("user:" + MyAJAXSearch.acctKey)
-                }
+                type: "GET",
+                url: MyAJAXSearch.fullUrl,
+                dataType: "json"
             })
                 .done(function(data){
                     MyAJAXSearch.resetResult();
-                    MyAJAXSearch.renderResult(data);
+                    MyJqueryAJAXSearch.renderResult(data);
                 });
         }
     };
