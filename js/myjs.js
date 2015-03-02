@@ -5,7 +5,7 @@ $(function() {
     var MyAJAXSearch = {
 
         inputHandler: document.getElementById("searchArea"),
-        acctKey: "AhLlAkkOGyJW6bPqjpbuyJzQaFODbaDxrKwKilID9yE",
+        acctKey: "",
         servOption: ["/Web", "/Image", "/News", "/Video"],
         searchSentence: undefined,
         resultObj: undefined,
